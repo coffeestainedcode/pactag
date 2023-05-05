@@ -1,2 +1,5 @@
 /target
 **/mapdata.bin
+**/*.tar.zst
+**/PKGBUILD
+**/pkg
