@@ -1,5 +1,8 @@
 /target
-**/mapdata.bin
+
+# makepkg things
 **/*.tar.zst
-**/PKGBUILD
 **/pkg
+**/src/pactag
+**/src/target
+**/pactag
