@@ -103,7 +103,12 @@ fn query() {
         }
     }
     for i in out.iter() {
-        println!("{} {} | {}", i.name.bold(), i.version.bold(), i.tag.italic().green());
+        if i.tag == "" {
+            println!("{} {}", i.name.bold(), i.version.bold());
+        }
+        else {
+            println!("{} {} | {}", i.name.bold(), i.version.bold(), i.tag.italic().green());
+        }
     }
 
     save_hashmap(&hm);
@@ -134,6 +139,17 @@ fn tag(args:Vec<String>) {
     }
 }
 
+fn remove(args:Vec<String>) {
+    let pkg = &args[2];
+    let mut hm:HashMap<String, String> = generate_hashmap_from_file();
+    if hm.contains_key(pkg) {
+        hm.insert(pkg.to_string(), "".to_string());
+    }
+    save_hashmap(&hm);
+    println!("Removed tag from {}", pkg);
+    return;
+}
+
 fn main() {
     let args: Vec<String> = env::args().collect();
     if args.len() <= 1{
@@ -150,12 +166,19 @@ fn main() {
             query();
         },
         "-L" => {
-            if args.len() <= 3 {
-                println!("Usage: pactag -L [package] [tags]");
+            if args.len() <= 3 || args.len() > 4 {
+                println!("Usage: pactag -L [package] [tag]");
                 return;
             }
             tag(args);
         },
+        "-R" => {
+            if args.len() <= 2 || args.len() > 3 {
+                println!("Usage: pactag -R [package]");
+                return;
+            }
+            remove(args);
+        }
         _ => println!("Usage: pactag -Q | -L"),
     }
 }
