@@ -8,5 +8,3 @@ pactag -Q -> List all explicitly installed packages with tags if tags exist.
 pactag -L \[package\] \[tag\] -> Set package to tag.
 
 pactag -R \[package\] -> remove tag from package.
-
-## Nowhere near complete! Lots to add!
